@@ -6,90 +6,281 @@
     <title>Анализ ответов по этапам изменений</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Montserrat', sans-serif;
-            line-height: 1.6;
-            color: #333;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #fafafa;
         }
+        
         h1 {
             text-align: center;
             font-weight: 700;
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #2c3e50;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            letter-spacing: -0.5px;
         }
+        
         .block {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        
+        .block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
         h2 {
-            font-weight: 600;
-            font-size: 22px;
+            font-weight: 700;
+            font-size: 28px;
             margin-top: 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #3498db;
-            color: #2980b9;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            padding-bottom: 15px;
         }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
         .category {
-            margin-bottom: 25px;
+            margin-bottom: 35px;
+            padding: 25px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
         }
+        
+        .category:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+        
         h3 {
             font-weight: 600;
-            font-size: 18px;
-            margin: 15px 0 8px;
-            color: #34495e;
+            font-size: 20px;
+            margin: 0 0 20px 0;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
         }
+        
+        h3::before {
+            content: '●';
+            color: #667eea;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        
         ul {
-            padding-left: 20px;
-            margin: 10px 0;
+            padding-left: 0;
+            margin: 0;
+            list-style: none;
         }
+        
         li {
-            margin-bottom: 6px;
-            font-size: 15px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            padding: 12px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 3px solid #667eea;
+            transition: all 0.3s ease;
+            position: relative;
         }
+        
+        li:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+            border-left-color: #764ba2;
+        }
+        
+        li::before {
+            content: '→';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
         .unique {
-            background-color: #f8f9fa;
-            border-left: 4px solid #e74c3c;
-            padding: 15px;
-            border-radius: 0 8px 8px 0;
-            margin-top: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
         }
+        
+        .unique::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+        
+        .unique:hover::before {
+            transform: scale(1);
+        }
+        
         .unique h4 {
             margin-top: 0;
-            color: #c0392b;
-            font-size: 16px;
-            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
         }
+        
+        .unique ul {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .unique li {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 3px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            backdrop-filter: blur(5px);
+        }
+        
+        .unique li::before {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .unique li:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(8px);
+        }
+        
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .block {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .block:nth-child(2) { animation-delay: 0.1s; }
+        .block:nth-child(3) { animation-delay: 0.2s; }
+        .block:nth-child(4) { animation-delay: 0.3s; }
+        
+        /* Адаптивность */
         @media (max-width: 768px) {
             body {
-                padding: 15px;
+                padding: 20px 15px;
             }
+            
+            h1 {
+                font-size: 28px;
+                margin-bottom: 30px;
+            }
+            
+            .block {
+                padding: 25px;
+                margin-bottom: 25px;
+            }
+            
+            h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            
+            h3 {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            
+            li {
+                font-size: 15px;
+                padding: 10px 15px;
+            }
+            
+            .category {
+                padding: 20px;
+                margin-bottom: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
             h1 {
                 font-size: 24px;
             }
+            
+            .block {
+                padding: 20px;
+            }
+            
             h2 {
                 font-size: 20px;
             }
+            
             h3 {
-                font-size: 17px;
+                font-size: 16px;
             }
+            
             li {
                 font-size: 14px;
+                padding: 8px 12px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Ключевые выводы по этапам внедрения изменений</h1>
+    <div class="container">
+        <h1>Ключевые выводы по этапам внедрения изменений</h1>
 
-    <div class="block">
+        <div class="block">
         <h2>Блок 1: Личное принятие изменений</h2>
 
         <div class="category">
@@ -124,7 +315,6 @@
         <div class="unique">
             <h4>Уникальные ответы:</h4>
             <ul>
-                <li>«Не внедрять изменения не получив полную информацию...»</li>
                 <li>«Изменения не учитывают разные направления... противоречит моим принципам.»</li>
             </ul>
         </div>
@@ -212,6 +402,7 @@
                 <li>«Держись, все будет хорошо! Наверное😀»</li>
             </ul>
         </div>
+    </div>
     </div>
 </body>
 </html>
